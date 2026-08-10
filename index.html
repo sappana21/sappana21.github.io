@@ -36,8 +36,6 @@
   a { color: inherit; text-decoration: none; }
 
   .wrap { max-width: 980px; margin: 0 auto; padding: 0 28px; }
-
-  /* ---------- layer rail (signature element) ---------- */
   .rail {
     position: fixed;
     left: 0; top: 0; bottom: 0;
@@ -65,8 +63,7 @@
   .nav-links { display: flex; gap: 28px; font-size: 0.88rem; color: var(--ink-dim); }
   .nav-links a:hover { color: var(--ink); }
   @media (max-width: 640px) { .nav-links { display: none; } }
-
-  /* ---------- hero ---------- */
+  
   .hero { padding: 96px 0 72px; position: relative; }
   .eyebrow {
     font-family: 'IBM Plex Mono', monospace;
@@ -132,7 +129,7 @@
   .btn.primary:hover { background: #f2c655; }
   .btn.ghost:hover { border-color: var(--ink-dim); }
 
-  /* ---------- section shell ---------- */
+
   section { padding: 64px 0; border-top: 1px solid var(--line); }
   .section-head {
     display: flex; align-items: baseline; gap: 16px;
@@ -154,7 +151,7 @@
     letter-spacing: -0.01em;
   }
 
-  /* ---------- about / experience ---------- */
+
   .about-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; }
   @media (max-width: 720px) { .about-grid { grid-template-columns: 1fr; } }
   .about-text { color: var(--ink-dim); font-size: 1rem; }
@@ -171,7 +168,6 @@
   .exp-org { color: var(--bronze); font-size: 0.88rem; font-family: 'IBM Plex Mono', monospace; margin-bottom: 12px; }
   .exp-desc { color: var(--ink-dim); font-size: 0.92rem; }
 
-  /* ---------- skills ---------- */
   .skill-groups { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
   @media (max-width: 720px) { .skill-groups { grid-template-columns: 1fr; } }
   .skill-card {
@@ -195,7 +191,6 @@
     color: var(--ink-dim);
   }
 
-  /* ---------- projects ---------- */
   .projects { display: flex; flex-direction: column; gap: 1px; background: var(--line); border: 1px solid var(--line); }
   .project {
     background: var(--bg);
@@ -240,7 +235,6 @@
   }
   .project-link:hover { color: var(--gold); border-color: var(--gold); }
 
-  /* ---------- contact / footer ---------- */
   footer { padding: 72px 0 48px; }
   .footer-title {
     font-family: 'Space Grotesk', sans-serif;
@@ -269,7 +263,7 @@
 
 <header class="nav">
   <div class="nav-inner">
-    <div class="nav-mark">sapana<span>.</span>pokharal</div>
+    <div class="nav-mark">Sapana<span> " "</span>Pokharal</div>
     <nav class="nav-links">
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
