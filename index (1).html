@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sapana Pokharal — Data Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg-raised: #131a24;
+    --bronze: #b5713b;
+    --silver: #9fb0c0;
+    --gold: #e8b93f;
+    --ink: #eef1f5;
+    --ink-dim: #9aa5b1;
+    --line: #232b36;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: var(--gold); color: #14100a; }
+
+  a { color: inherit; text-decoration: none; }
+
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 28px; }
+
+  /* ---------- layer rail (signature element) ---------- */
+  .rail {
+    position: fixed;
+    left: 0; top: 0; bottom: 0;
+    width: 6px;
+    z-index: 50;
+    background: linear-gradient(180deg, var(--bronze) 0%, var(--bronze) 33%, var(--silver) 33%, var(--silver) 66%, var(--gold) 66%, var(--gold) 100%);
+  }
+  @media (max-width: 720px) { .rail { display: none; } }
+
+  header.nav {
+    position: sticky; top: 0; z-index: 40;
+    background: rgba(13,17,23,0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner {
+    max-width: 980px; margin: 0 auto; padding: 18px 28px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .nav-mark {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em;
+  }
+  .nav-mark span { color: var(--gold); }
+  .nav-links { display: flex; gap: 28px; font-size: 0.88rem; color: var(--ink-dim); }
+  .nav-links a:hover { color: var(--ink); }
+  @media (max-width: 640px) { .nav-links { display: none; } }
+
+  /* ---------- hero ---------- */
+  .hero { padding: 96px 0 72px; position: relative; }
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--ink-dim);
+    letter-spacing: 0.08em;
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 28px;
+  }
+  .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+
+  .pipeline {
+    display: flex; align-items: center; gap: 0;
+    margin-bottom: 36px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+  }
+  .stage {
+    padding: 6px 14px;
+    border: 1px solid var(--line);
+    color: var(--ink-dim);
+  }
+  .stage.bronze { border-color: var(--bronze); color: var(--bronze); }
+  .stage.silver { border-color: var(--silver); color: var(--silver); }
+  .stage.gold { border-color: var(--gold); color: var(--gold); }
+  .arrow { color: var(--line); padding: 0 4px; font-size: 0.8rem; }
+
+  h1.name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.6rem, 6vw, 4.4rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin-bottom: 18px;
+  }
+  h1.name .accent {
+    background: linear-gradient(90deg, var(--bronze), var(--gold));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .tagline {
+    font-size: 1.15rem;
+    color: var(--ink-dim);
+    max-width: 560px;
+    margin-bottom: 40px;
+  }
+  .tagline strong { color: var(--ink); font-weight: 500; }
+
+  .cta-row { display: flex; flex-wrap: wrap; gap: 14px; }
+  .btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.82rem;
+    padding: 12px 22px;
+    border: 1px solid var(--line);
+    transition: border-color 0.2s, transform 0.15s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn.primary { background: var(--gold); color: #14100a; border-color: var(--gold); font-weight: 500; }
+  .btn.primary:hover { background: #f2c655; }
+  .btn.ghost:hover { border-color: var(--ink-dim); }
+
+  /* ---------- section shell ---------- */
+  section { padding: 64px 0; border-top: 1px solid var(--line); }
+  .section-head {
+    display: flex; align-items: baseline; gap: 16px;
+    margin-bottom: 40px;
+  }
+  .section-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    padding: 4px 10px;
+    letter-spacing: 0.06em;
+  }
+  .section-tag.bronze { background: rgba(181,113,59,0.14); color: var(--bronze); }
+  .section-tag.silver { background: rgba(159,176,192,0.14); color: var(--silver); }
+  .section-tag.gold { background: rgba(232,185,63,0.14); color: var(--gold); }
+  h2.section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 1.7rem;
+    letter-spacing: -0.01em;
+  }
+
+  /* ---------- about / experience ---------- */
+  .about-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; }
+  @media (max-width: 720px) { .about-grid { grid-template-columns: 1fr; } }
+  .about-text { color: var(--ink-dim); font-size: 1rem; }
+  .about-text p { margin-bottom: 16px; }
+  .about-text strong { color: var(--ink); }
+
+  .exp-card {
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--bronze);
+    padding: 22px 24px;
+  }
+  .exp-role { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1.02rem; margin-bottom: 4px; }
+  .exp-org { color: var(--bronze); font-size: 0.88rem; font-family: 'IBM Plex Mono', monospace; margin-bottom: 12px; }
+  .exp-desc { color: var(--ink-dim); font-size: 0.92rem; }
+
+  /* ---------- skills ---------- */
+  .skill-groups { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  @media (max-width: 720px) { .skill-groups { grid-template-columns: 1fr; } }
+  .skill-card {
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    padding: 22px 24px;
+  }
+  .skill-card-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.76rem;
+    letter-spacing: 0.06em;
+    margin-bottom: 14px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .skill-card-title .sw { width: 8px; height: 8px; }
+  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font-size: 0.82rem;
+    padding: 5px 11px;
+    border: 1px solid var(--line);
+    color: var(--ink-dim);
+  }
+
+  /* ---------- projects ---------- */
+  .projects { display: flex; flex-direction: column; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .project {
+    background: var(--bg);
+    padding: 26px 28px;
+    display: grid;
+    grid-template-columns: 28px 1fr auto;
+    gap: 20px;
+    align-items: start;
+    transition: background 0.2s;
+  }
+  .project:hover { background: var(--bg-raised); }
+  @media (max-width: 640px) { .project { grid-template-columns: 20px 1fr; } .project-link { grid-column: 1 / -1; margin-top: 10px; } }
+  .project-layer {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--ink-dim);
+    padding-top: 3px;
+  }
+  .project-body .project-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 1.08rem;
+    margin-bottom: 6px;
+  }
+  .project-body .project-desc { color: var(--ink-dim); font-size: 0.92rem; margin-bottom: 12px; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .project-tags span {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--gold);
+    background: rgba(232,185,63,0.1);
+    padding: 3px 8px;
+  }
+  .project-link {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--ink-dim);
+    border: 1px solid var(--line);
+    padding: 7px 14px;
+    white-space: nowrap;
+    align-self: center;
+  }
+  .project-link:hover { color: var(--gold); border-color: var(--gold); }
+
+  /* ---------- contact / footer ---------- */
+  footer { padding: 72px 0 48px; }
+  .footer-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.9rem, 4vw, 2.8rem);
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+  }
+  .contact-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 40px; }
+  .contact-row {
+    display: flex; align-items: center; gap: 14px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.92rem;
+    color: var(--ink-dim);
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .contact-row:hover { color: var(--ink); }
+  .contact-label { width: 90px; color: var(--ink-dim); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  .foot-note { color: var(--ink-dim); font-size: 0.8rem; font-family: 'IBM Plex Mono', monospace; }
+</style>
+</head>
+<body>
+
+<div class="rail"></div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="nav-mark">sapana<span>.</span>pokharal</div>
+    <nav class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="hero" style="border-top:none;">
+    <div class="eyebrow"><span class="dot"></span>OPEN TO INTERNSHIPS &amp; ENTRY-LEVEL ROLES</div>
+
+    <div class="pipeline">
+      <span class="stage bronze">RAW</span><span class="arrow">→</span>
+      <span class="stage silver">REFINED</span><span class="arrow">→</span>
+      <span class="stage gold">CURATED</span>
+    </div>
+
+    <h1 class="name">Sapana<br>Pokharal<span class="accent">.</span></h1>
+    <p class="tagline">Data Engineering student building <strong>pipelines that move raw data to something worth trusting</strong> — on Databricks, Spark, and Azure.</p>
+
+    <div class="cta-row">
+      <a class="btn primary" href="mailto:sapnapokhrel21@gmail.com">Email me</a>
+      <a class="btn ghost" href="https://github.com/sappana21" target="_blank">GitHub ↗</a>
+      <a class="btn ghost" href="https://www.linkedin.com/in/sapana-pokharal-79b11a293/" target="_blank">LinkedIn ↗</a>
+      <a class="btn ghost" id="resume-btn" href="https://drive.google.com/file/d/1lOzuKY1_X3t6kSni9SVc-s7uAV0UZrl7/view?usp=drive_link" target="_blank">Resume ↗</a>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="section-head">
+      <span class="section-tag bronze">01</span>
+      <h2 class="section-title">About &amp; Experience</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I work at the <strong>Bronze → Silver → Gold</strong> layer of data — turning messy, raw sources into clean, reliable, analytics-ready data using <strong>Medallion Architecture</strong> on Databricks. Most of my hands-on work sits inside Spark, Delta Lake, and Unity Catalog, with a growing focus on applying Databricks Mosaic AI (RAG, embeddings, LLM integration) on top of well-built data foundations.</p>
+        <p>Currently interning as an <strong>Azure Integration Intern</strong>, working hands-on with Databricks in a production setting — bridging the gap between coursework and real infrastructure.</p>
+      </div>
+      <div class="exp-card">
+        <div class="exp-role">Azure Integration Intern</div>
+        <div class="exp-org">Protiviti</div>
+        <div class="exp-desc">Hands-on with Azure Databricks — building and supporting data integration workflows in a live enterprise environment.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-head">
+      <span class="section-tag silver">02</span>
+      <h2 class="section-title">Technical Skills</h2>
+    </div>
+    <div class="skill-groups">
+      <div class="skill-card">
+        <div class="skill-card-title"><span class="sw" style="background:var(--bronze)"></span>DATA ENGINEERING</div>
+        <div class="chip-row">
+          <span class="chip">Databricks</span><span class="chip">Apache Spark / PySpark</span><span class="chip">Spark SQL</span>
+          <span class="chip">Delta Lake</span><span class="chip">Medallion Architecture</span><span class="chip">Unity Catalog</span>
+          <span class="chip">ETL Pipelines</span><span class="chip">Azure Databricks</span><span class="chip">Data Processing &amp; Optimization</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-title"><span class="sw" style="background:var(--gold)"></span>AI / DATA PLATFORM</div>
+        <div class="chip-row">
+          <span class="chip">Mosaic AI</span><span class="chip">Foundation Model API</span><span class="chip">RAG</span>
+          <span class="chip">Embeddings</span><span class="chip">AI Gateway</span><span class="chip">MLflow</span><span class="chip">LLM Integration</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-title"><span class="sw" style="background:var(--silver)"></span>CLOUD &amp; DEVOPS</div>
+        <div class="chip-row">
+          <span class="chip">AWS EC2</span><span class="chip">Lambda</span><span class="chip">S3</span><span class="chip">VPC</span>
+          <span class="chip">SNS</span><span class="chip">SES</span><span class="chip">SQS</span><span class="chip">Linux (Ubuntu)</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-title"><span class="sw" style="background:var(--ink-dim)"></span>NETWORKING &amp; SECURITY</div>
+        <div class="chip-row">
+          <span class="chip">TCP/IP</span><span class="chip">OSI Model</span><span class="chip">Subnetting</span><span class="chip">Routing &amp; Switching</span>
+          <span class="chip">SSH / TELNET</span><span class="chip">DNS / DHCP</span><span class="chip">Firewalls</span><span class="chip">VPN Concepts</span>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:20px;" class="chip-row">
+      <span class="chip">Python</span><span class="chip">SQL</span><span class="chip">Cisco Packet Tracer</span><span class="chip">EVE-NG</span>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="section-head">
+      <span class="section-tag gold">03</span>
+      <h2 class="section-title">Projects</h2>
+    </div>
+    <div class="projects">
+
+      <div class="project">
+        <div class="project-layer">GOLD</div>
+        <div class="project-body">
+          <div class="project-name">Mosaic AI Sales Data Project</div>
+          <div class="project-desc">End-to-end sales data pipeline built on Medallion Architecture (Bronze–Silver–Gold) with logging, embedding generation, and AI processing using Databricks Mosaic AI.</div>
+          <div class="project-tags"><span>Databricks</span><span>Mosaic AI</span><span>Medallion</span><span>Embeddings</span></div>
+        </div>
+        <a class="project-link" href="https://github.com/sappana21/Mosaic-AI-Sales-Data-Project" target="_blank">View repo ↗</a>
+      </div>
+
+      <div class="project">
+        <div class="project-layer">GOLD</div>
+        <div class="project-body">
+          <div class="project-name">Sales Medallion Pipeline Optimization</div>
+          <div class="project-desc">End-to-end, performance-optimized sales data pipeline using Medallion Architecture with broadcast joins, fact/dimension modeling, Autoloader, and incremental processing.</div>
+          <div class="project-tags"><span>PySpark</span><span>Delta Lake</span><span>Autoloader</span><span>Performance Tuning</span></div>
+        </div>
+        <a class="project-link" href="https://github.com/sappana21/sales-medallion-pipeline-optimization" target="_blank">View repo ↗</a>
+      </div>
+
+      <div class="project">
+        <div class="project-layer">SILVER</div>
+        <div class="project-body">
+          <div class="project-name">Mosaic AI</div>
+          <div class="project-desc">A collection of Databricks notebooks demonstrating generative AI workflows using Foundation Models, Embeddings, Vector Search, RAG, and AI Gateway.</div>
+          <div class="project-tags"><span>RAG</span><span>Vector Search</span><span>Foundation Models</span></div>
+        </div>
+        <a class="project-link" href="https://github.com/sappana21/Mosaic-AI" target="_blank">View repo ↗</a>
+      </div>
+
+      <div class="project">
+        <div class="project-layer">SILVER</div>
+        <div class="project-body">
+          <div class="project-name">Data Ingestion using Lakeflow Declarative Pipelines</div>
+          <div class="project-desc">Automated data ingestion pipeline using Databricks Lakeflow Declarative Pipelines with Medallion Architecture.</div>
+          <div class="project-tags"><span>Lakeflow</span><span>Automation</span><span>Medallion</span></div>
+        </div>
+        <a class="project-link" href="https://github.com/sappana21/Data-ingestion-using-Lakeflow-Declarative-Pipeline" target="_blank">View repo ↗</a>
+      </div>
+
+      <div class="project">
+        <div class="project-layer">BRONZE</div>
+        <div class="project-body">
+          <div class="project-name">HR Hierarchy App</div>
+          <div class="project-desc">Role-based HR hierarchy application built on Databricks.</div>
+          <div class="project-tags"><span>Databricks</span><span>Python</span></div>
+        </div>
+        <a class="project-link" href="https://github.com/sappana21/hr-hierarchy-app" target="_blank">View repo ↗</a>
+      </div>
+
+      <div class="project">
+        <div class="project-layer">BRONZE</div>
+        <div class="project-body">
+          <div class="project-name">Lakeview Dashboard</div>
+          <div class="project-desc">Interactive sales analytics dashboard built on Delta Lake and Medallion Architecture using Databricks Lakeview.</div>
+          <div class="project-tags"><span>Delta Lake</span><span>Lakeview</span><span>Dashboards</span></div>
+        </div>
+        <a class="project-link" href="https://github.com/sappana21/Lakeview-Dashboard" target="_blank">View repo ↗</a>
+      </div>
+
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="section-head">
+      <span class="section-tag bronze">04</span>
+      <h2 class="section-title" style="opacity:0;position:absolute;">Contact</h2>
+    </div>
+    <div class="footer-title">Let's build<br>something reliable.</div>
+    <div class="contact-list">
+      <a class="contact-row" href="mailto:sapnapokhrel21@gmail.com"><span class="contact-label">Email</span> sapnapokhrel21@gmail.com</a>
+      <a class="contact-row" href="tel:+919599789036"><span class="contact-label">Phone</span> +91 95997 89036</a>
+      <a class="contact-row" href="https://www.linkedin.com/in/sapana-pokharal-79b11a293/" target="_blank"><span class="contact-label">LinkedIn</span> /in/sapana-pokharal</a>
+      <a class="contact-row" href="https://github.com/sappana21" target="_blank"><span class="contact-label">GitHub</span> /sappana21</a>
+    </div>
+    <div class="foot-note">© 2026 Sapana Pokharal — built bronze to gold.</div>
+  </footer>
+
+</div>
+
+</body>
+</html>
