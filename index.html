@@ -108,6 +108,11 @@
     font-size: 1rem;
     color: var(--ink-soft);
     margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    row-gap: 8px;
   }
   .role-line .badge {
     display: inline-block;
@@ -115,9 +120,9 @@
     color: var(--rust);
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.72rem;
-    padding: 2px 8px;
+    padding: 4px 10px;
     border-radius: 3px;
-    margin-left: 8px;
+    flex-shrink: 0;
   }
 
   .term-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
